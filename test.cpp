@@ -1,52 +1,55 @@
 #include <iostream>
 using namespace std;
 string b1, b2;
-string hexa[16][2] =
-    {
-        {"0000", "0"},
-        {"0001", "1"},
-        {"0010", "2"},
-        {"0011", "3"},
-        {"0100", "4"},
-        {"0101", "5"},
-        {"0110", "6"},
-        {"0111", "7"},
-        {"1000", "8"},
-        {"1001", "9"},
-        {"1010", "A"},
-        {"1011", "B"},
-        {"1100", "C"},
-        {"1101", "D"},
-        {"1110", "E"},
-        {"1111", "F"}};
-string octa[8][2] =
-    {
-        {"000", "0"},
-        {"001", "1"},
-        {"010", "2"},
-        {"011", "3"},
-        {"100", "4"},
-        {"101", "5"},
-        {"110", "6"},
-        {"111", "7"}};
-void compact(string &number)
+string hexa[16][2]=
 {
-    while (number[0] == '0')
+    {"0000","0"},
+    {"0001","1"},
+    {"0010","2"},
+    {"0011","3"},
+    {"0100","4"},
+    {"0101","5"},
+    {"0110","6"},
+    {"0111","7"},
+    {"1000","8"},
+    {"1001","9"},
+    {"1010","A"},
+    {"1011","B"},
+    {"1100","C"},
+    {"1101","D"},
+    {"1110","E"},
+    {"1111","F"}
+};
+string octa[8][2]=
+{
+    {"000","0"},
+    {"001","1"},
+    {"010","2"},
+    {"011","3"},
+    {"100","4"},
+    {"101","5"},
+    {"110","6"},
+    {"111","7"}
+};
+void compact()
+{
+    while(b1[0]=='0')
     {
-        number.erase(0, 1);
-        if (number.empty())
+        b1.erase(0,1);
+        if(b1.empty())
         {
-            number = "0";
-            return;
+            b1=="0";
+            break;
         }
     }
-    return;
-}
-void balance(string &number, int length)
-{
-    while (number.length() < length)
+    while(b2[0]=='0')
     {
-        number = "0" + number;
+        b2.erase(0,1);
+        if(b2.empty())
+        {
+            b2=="0";
+            break;
+        }
     }
     return;
 }
@@ -57,8 +60,8 @@ string convert(string n, int base)
     {
         if (n.length() % 4 != 0)
         {
-            int temp = n.length() % 4;
-            for (int i = 1; i <= 4 - temp; i++)
+            int temp = n.length();
+            for (int i = 1; i <= 4 - temp % 4; i++)
             {
                 n = "0" + n;
             }
@@ -66,19 +69,13 @@ string convert(string n, int base)
         while (n.length() != 0)
         {
             string temp;
-            // temp = n.substr(n.length() - 4, 4);
-            int i = n.length()-1;
-            while (temp.length() < 4)
-            {
-                temp = n[i] + temp;
-                i-=1;
-            }
+            temp = n.substr(n.length() - 4, 4);
             n.erase(n.length() - 4, 4);
-            for (int i = 0; i < 16; i++)
+            for(int i = 0; i < 16; i++)
             {
-                if (hexa[i][0] == temp)
+                if(hexa[i][0]==temp)
                 {
-                    ans = hexa[i][1] + ans;
+                    ans=hexa[i][1]+ans;
                 }
             }
         }
@@ -89,22 +86,17 @@ string convert(string n, int base)
         while (n.length() != 0)
         {
             string temp;
-            int i = n.length()-1;
             if (n.length() % 3 != 0)
             {
-                n = "0" + n;
+                n="0"+n;
             }
-            while (temp.length() < 3)
-            {
-                temp = n[i] + temp;
-                i-=1;
-            }
+            temp = n.substr(n.length() - 3, 3);
             n.erase(n.length() - 3, 3);
-            for (int i = 0; i < 8; i++)
+            for(int i = 0; i < 8; i++)
             {
-                if (octa[i][0] == temp)
+                if(octa[i][0]==temp)
                 {
-                    ans = octa[i][1] + ans;
+                    ans=octa[i][1]+ans;
                 }
             }
         }
@@ -116,17 +108,29 @@ string add()
     string ans;
     int carry = 0;
     int temp;
-    for (int i = b1.length() - 1; i >= 0; i--)
+    int i = b1.length() - 1;
+    int j = b2.length() - 1;
+    while (i >= 0 or j >= 0)
     {
-        temp = (b1[i] - '0') + (b2[i] - '0') + carry;
-        ans = char((temp % 2) + '0') + ans;
-        carry = temp / 2;
+        int x=0,y=0;
+        if (i >= 0)
+        {
+            x = b1[i]-'0';
+        }
+        if (j >= 0)
+        {
+            y = b2[j]-'0';
+        }
+        temp=x+y+carry;
+        ans=to_string(temp%2)+ans;
+        carry=temp/2;
+        i--;
+        j--;
     }
     if (carry)
     {
         ans = "1" + ans;
     }
-    compact(ans);
     return ans;
 }
 int main()
@@ -135,14 +139,7 @@ int main()
     cin.tie(NULL);
     string result;
     cin >> b1 >> b2;
-    if (b1.length() > b2.length())
-    {
-        balance(b2, b1.length());
-    }
-    else
-    {
-        balance(b1, b2.length());
-    }
+    compact();
     result = add();
     cout << result << "\n\n"
          << convert(result, 8) << "\n\n"
