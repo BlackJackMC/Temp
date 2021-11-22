@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@BlackJackMC 
+BlackJackMC
+/
+Kiemtra
+Public
+1
+00
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+Kiemtra/test.cpp
+@BlackJackMC
+BlackJackMC Update test.cpp
+Latest commit 6e45a78 5 minutes ago
+ History
+ 1 contributor
+140 lines (140 sloc)  2.8 KB
+   
 #include <iostream>
 using namespace std;
 string b1, b2;
@@ -36,7 +67,7 @@ void compact(string &number)
         number.erase(0, 1);
         if (number.empty())
         {
-            number == "0";
+            number = "0";
             return;
         }
     }
@@ -138,3 +169,15 @@ int main()
          << convert(result, 16);
     return 0;
 }
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
