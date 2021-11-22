@@ -36,7 +36,7 @@ void compact(string &number)
         number.erase(0, 1);
         if (number.empty())
         {
-            number == "0";
+            number = "0";
             return;
         }
     }
