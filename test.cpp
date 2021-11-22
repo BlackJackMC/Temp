@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@BlackJackMC 
-BlackJackMC
-/
-Kiemtra
-Public
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-Kiemtra/test.cpp
-@BlackJackMC
-BlackJackMC Update test.cpp
-Latest commit 6e45a78 5 minutes ago
- History
- 1 contributor
-140 lines (140 sloc)  2.8 KB
-   
 #include <iostream>
 using namespace std;
 string b1, b2;
@@ -77,7 +46,7 @@ void balance(string &number, int length)
 {
     while (number.length() < length)
     {
-        number.insert(0, "0");
+        number = "0" + number;
     }
     return;
 }
@@ -97,7 +66,13 @@ string convert(string n, int base)
         while (n.length() != 0)
         {
             string temp;
-            temp = n.substr(n.length() - 4, 4);
+            // temp = n.substr(n.length() - 4, 4);
+            int i = n.length()-1;
+            while (temp.length() < 4)
+            {
+                temp = n[i] + temp;
+                i-=1;
+            }
             n.erase(n.length() - 4, 4);
             for (int i = 0; i < 16; i++)
             {
@@ -114,11 +89,16 @@ string convert(string n, int base)
         while (n.length() != 0)
         {
             string temp;
+            int i = n.length()-1;
             if (n.length() % 3 != 0)
             {
                 n = "0" + n;
             }
-            temp = n.substr(n.length() - 3, 3);
+            while (temp.length() < 3)
+            {
+                temp = n[i] + temp;
+                i-=1;
+            }
             n.erase(n.length() - 3, 3);
             for (int i = 0; i < 8; i++)
             {
@@ -169,15 +149,3 @@ int main()
          << convert(result, 16);
     return 0;
 }
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
