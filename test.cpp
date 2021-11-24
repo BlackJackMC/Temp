@@ -53,19 +53,15 @@ void balance(string &number, int length)
 string convert(string n, int base)
 {
     string ans;
+    string temp;
     if (base == 16)
     {
-        if (n.length() % 4 != 0)
+        while (n.length() % 4 != 0)
         {
-            int temp = n.length() % 4;
-            for (int i = 1; i <= 4 - temp; i++)
-            {
-                n = "0" + n;
-            }
+            n="0"+n;
         }
         while (n.length() != 0)
         {
-            string temp;
             temp = n.substr(n.length() - 4, 4);
             n.erase(n.length() - 4, 4);
             for (int i = 0; i < 16; i++)
@@ -82,7 +78,6 @@ string convert(string n, int base)
     {
         while (n.length() != 0)
         {
-            string temp;
             if (n.length() % 3 != 0)
             {
                 n = "0" + n;
