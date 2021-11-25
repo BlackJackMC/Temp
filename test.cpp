@@ -62,15 +62,14 @@ string convert(string n, int base)
         }
         while (n.length() != 0)
         {
-            temp = n.substr(n.length() - 4, 4);
-            n.erase(n.length() - 4, 4);
             for (int i = 0; i < 16; i++)
             {
-                if (hexa[i][0] == temp)
+                if (hexa[i][0] == n.substr(n.length() - 4, 4))
                 {
                     ans = hexa[i][1] + ans;
                 }
             }
+            n.erase(n.length() - 4, 4);
         }
         return ans;
     }
@@ -82,15 +81,14 @@ string convert(string n, int base)
             {
                 n = "0" + n;
             }
-            temp = n.substr(n.length() - 3, 3);
-            n.erase(n.length() - 3, 3);
             for (int i = 0; i < 8; i++)
             {
-                if (octa[i][0] == temp)
+                if (octa[i][0] == n.substr(n.length() - 3, 3))
                 {
                     ans = octa[i][1] + ans;
                 }
             }
+            n.erase(n.length() - 3, 3);
         }
         return ans;
     }
@@ -119,6 +117,18 @@ int main()
     cin.tie(NULL);
     string result;
     cin >> b1 >> b2;
+    if(b1=="0")
+    {
+        compact(b2);
+        cout<<b2<<"\n\n"<<convert(b2,8)<<"\n\n"<<convert(b2,16);
+        return 0;
+    }
+    else if(b2=="0")
+    {
+        compact(b1);
+        cout<<b1<<"\n\n"<<convert(b1,8)<<"\n\n"<<convert(b1,16);
+        return 0;
+    }
     if (b1.length() > b2.length())
     {
         balance(b2, b1.length());
